@@ -1,0 +1,424 @@
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap");
+:root{
+    --mainColor: #000;
+    --bgColor: #222;
+    --textColor: #ddd;
+    --opacityColog: rgba(0, 0, 0, 0.6);
+    --redColor: red;
+    --greyColor: #aaa;
+    --whiteColor: #fff;
+    --yellowColor: yellow;
+}
+.whiteMode{
+    --mainColor: #fff;
+    --bgColor: #e7e7e7;
+    --textColor: #222;
+    --opacityColog: rgba(255, 255, 255, 0.6);
+    --redColor: red;
+    --greyColor: #6e6e6e;
+    --whiteColor: #000;
+    --yellowColor: yellow;
+}
+body {
+    background-color: var(--bgColor);
+    font-family: "Playwrite DE Grund", cursive;
+    color: var(--textColor);
+}
+.main-header {
+    background-color: var(--mainColor);
+    padding: 5px 0px;
+}
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+p {
+    margin: 0px;
+}
+.logo {
+    width: auto;
+    height: 30px;
+}
+.menu a {
+    margin: 0px 2px;
+    padding: 11px 14px;
+    color: var(--textColor);
+}
+.search-input {
+    background: var(--bgColor);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: var(--textColor);
+    font-size: 14px;
+    font-weight: 500;
+    height: 35px;
+    width: 100%;
+}
+.search-input::placeholder {
+    color: var(--textColor);
+    font-size: 14px;
+    font-weight: 500;
+}
+.menu-item {
+    position: relative;
+}
+.dropdown-menu {
+    max-width: auto;
+    height: auto;
+    background-color: var(--mainColor);
+    z-index: 99;
+    position: absolute;
+    left: 0;
+}
+.dropdown-menu a {
+    display: block;
+    font-size: 12px;
+}
+.dropdown-toggle:hover .dropdown-menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header-alphabetic {
+    background-color: var(--mainColor);
+    padding-top: 10px;
+    padding: 5px;
+}
+.alphabetic-tag a {
+    color: var(--textColor);
+    display: inline-block;
+    padding: 0px 20px;
+}
+.alphabetic-tag a:hover {
+    background-color: var(--bgColor);
+    color: var(--textColor);
+}
+
+.main-content {
+    background-color: var(--mainColor);
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.sidebar-widget {
+    margin-bottom: 10px;
+}
+.latest-item {
+    display: flex;
+    margin-bottom: 10px;
+}
+.latest-item a {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--textColor);
+    font-size: 14px;
+    font-weight: 500;
+}
+.thumbnail-box {
+    width: 30%;
+    margin-right: 10px;
+}
+.latest-item span {
+    color: var(--greyColor);
+    font-weight: 500;
+    font-size: 12px;
+}
+.latest-item span i {
+    color: var(--whiteColor);
+    font-size: 12px;
+    margin-right: 5px;
+}
+.category-item {
+    display: flex;
+    align-items: center;
+    padding: 5px 2px;
+    border-radius: 5px;
+}
+.category-item a {
+    color: var(--textColor);
+    display: block;
+    width: 100%;
+    margin-left: 10px;
+}
+.category-item i {
+    color: var(--whiteColor);
+}
+.category-item:hover {
+    color: var(--whiteColor);
+    background-color: var(--bgColor);
+}
+.category-item:hover i {
+    margin-left: 3px;
+    transform: ease 0.3s;
+}
+.feature-movies {
+    margin: 20px 0px;
+}
+.swiper-pagination-bullet {
+    background-color: var(--redColor) !important;
+}
+.swiper-pagination {
+    position: relative !important;
+    margin-top: 10px !important;
+}
+.slider-image {
+    position: relative;
+}
+
+.slider-content-meta {
+    background: var(--opacityColog);
+    position: absolute;
+    z-index: 99;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+}
+.slider-content-meta .movie-name a {
+    margin: 0px;
+    display: block;
+    margin-bottom: 5px;
+    color: var(--textColor);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.releasing-year {
+    margin: 0px;
+    display: block;
+    margin-bottom: 5px;
+    color: var(--textColor);
+    font-size: 14px;
+    font-weight: 500;
+}
+.movie-card .poster {
+    position: relative;
+}
+.movie-card .movie-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--redColor);
+    color: var(--bgColor);
+    font-weight: 500;
+    font-size: 12px;
+    display: inline-block;
+    padding: 2px;
+}
+.movie-card .movie-rating {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: var(--mainColor);
+    padding: 2px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--greyColor);
+}
+.movie-card .movie-rating i {
+    color: var(--yellowColor);
+}
+.movie-name a{
+    width: 150px;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    margin: 0px;
+    display: block;
+    margin-bottom: 2px;
+    color: var(--textColor);
+    font-size: 14px;
+    font-weight: 500;
+}
+.movie-card .releasing-year{
+    font-size: 14px;
+    color: var(--greyColor);
+    margin: 0px;
+}
+.latest-movies{
+    margin: 20px 0px;
+}
+.view-all-link{
+    color: var(--bgColor);
+    background-color: var(--redColor);
+    font-size: 12px;
+    padding: 2px;
+}
+
+
+.checkbox {
+    opacity: 0;
+    position: absolute;
+  }
+  
+  .checkbox-label {
+    background-color: var(--bgColor);
+    width: 50px;
+    height: 26px;
+    border-radius: 50px;
+    position: relative;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .fa-moon {color: #f1c40f;}
+  
+  .fa-sun {color: #f39c12;}
+  
+  .checkbox-label .ball {
+    background-color: #fff;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
+    transition: transform 0.2s linear;
+  }
+  
+  .checkbox:checked + .checkbox-label .ball {
+    transform: translateX(24px);
+  }
+
+  .single-movie-content .top{
+    display: flex;
+    align-items: start;
+    gap: 20px;
+  }
+  .single-movie-content .top .genres{
+    margin: 10px 0px;
+  }
+  .single-movie-content .top .genre{
+    padding: 5px 12px;
+    border-radius: 5px;
+    color: var(--whiteColor);
+    font-size: 500;
+  }
+  .single-movie-content .top .genre:hover{
+   background-color: var(--bgColor);
+  }
+  .single-movie-content .top .year{
+    color: var(--greyColor);
+    font-weight: 500;
+  }
+  .single-movie-content .top .category{
+    font-weight: 500;
+    color: var(--textColor);
+  }
+
+  .movie-content-tab{
+    padding: 20px;
+    margin-top: 20px;
+    border-bottom: 1px solid var(--bgColor);
+  }
+  .movie-content-tab button{
+    padding: 6px 16px;
+    color: var(--whiteColor);
+    border-radius: 5px;
+  }
+  .movie-content-tab button.active{
+    background-color: var(--redColor);
+  }
+
+  .tab-components{
+    margin-top: 20px;
+    padding: 20px;
+  }
+  .actor-role{
+    color: var(--greyColor);
+    font-size: 12px;
+  }
+  .footer a{
+    color: var(--greyColor);
+    font-size: 12px;
+    margin: 4px 2px;
+    padding: 3px 6px;
+    display: inline-block;
+  }
+  .footer a:hover{
+    background-color: var(--mainColor);
+  }
+
+  .search-page-content{
+    width: 80%;
+    margin: 20px auto;
+  }
+  .search-results{
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  .search-result-genres{
+    color: var(--textColor);
+    margin: 0px 2px;
+  }
+
+
+  /* 
+   */
+
+   .input-switch{
+	display: none;
+}
+
+.label-switch{
+	display: inline-block;
+	position: relative;
+}
+
+.label-switch::before, .label-switch::after{
+	content: "";
+	display: inline-block;
+	cursor: pointer;
+	transition: all 0.5s;
+}
+
+.label-switch::before {
+    width: 3em;
+    height: 1em;
+    border: 1px solid #757575;
+    border-radius: 4em;
+    background: #888888;
+}
+
+.label-switch::after {
+    position: absolute;
+    left: 0;
+    top: -20%;
+    width: 1.5em;
+    height: 1.5em;
+    border: 1px solid #757575;
+    border-radius: 4em;
+    background: #ffffff;
+}
+
+.input-switch:checked ~ .label-switch::before {
+    background: #00a900;
+    border-color: #008e00;
+}
+
+.input-switch:checked ~ .label-switch::after {
+    left: unset;
+    right: 0;
+    background: #00ce00;
+    border-color: #009a00;
+}
+
+.info-text {
+	display: inline-block;
+}
+
+.info-text::before{
+	content: "Inactive";
+}
+
+.input-switch:checked ~ .info-text::before{
+	content: "Active";
+}
