@@ -28,6 +28,8 @@
         "react-bootstrap": "^2.10.4",
         "react-modal": "^3.16.1",
         "react-router-dom": "^6.24.0",
-        "swiper": "^11.1.4"
+        "react-select": "^5.8.0",
+        "swiper": "^11.1.4",
+        "jquery": "3.3.1"
     }
 }

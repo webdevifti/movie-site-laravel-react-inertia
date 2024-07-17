@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -25,7 +27,12 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $active_categories = Category::where('status',1)->get();
+        $active_ganres = Genre::where('status',1)->get();
+        return Inertia::render('Admin/Movie/CreateForm',[
+            'active_categories' => $active_categories,
+            'active_ganres' => $active_ganres
+        ]);
     }
 
     /**

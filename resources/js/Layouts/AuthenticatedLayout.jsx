@@ -30,6 +30,12 @@ export default function Authenticated({ user, header, btn, children }) {
                   Dashboard
                 </NavLink>
                 <NavLink
+                  href={route("admin.movies.index")}
+                  active={route().current("admin.movies.index")}
+                >
+                  Movies
+                </NavLink>
+                <NavLink
                   href={route("admin.genres.index")}
                   active={route().current("admin.genres.index")}
                 >
@@ -145,6 +151,12 @@ export default function Authenticated({ user, header, btn, children }) {
               active={route().current("dashboard")}
             >
               Dashboard
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              href={route("admin.movies.index")}
+              active={route().current("admin.movies.index")}
+            >
+              Movies
             </ResponsiveNavLink>
             <ResponsiveNavLink
               href={route("admin.genres.index")}

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\SpecialCategoryController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -30,6 +31,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/genres',GenreController::class);
         Route::resource('/categories', CategoryController::class);
         Route::resource('/special-categories', SpecialCategoryController::class);
+        Route::resource('/movies', MovieController::class);
     });
 });
 

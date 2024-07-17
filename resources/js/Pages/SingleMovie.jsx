@@ -5,18 +5,17 @@ import "../../css/style.css";
 import HeaderNav from "../Components/frontend/Navbar";
 import RightContent from "@/Components/frontend/RightContent";
 import SingleMovieLeftContent from "@/Components/frontend/SingleMovieLeftContent";
-import movie_content from '@/assets/single_movie'
 import Footer from "@/Components/frontend/Footer";
 
-const SingleMovie = ({slug,genres,categories,special_categories}) => {
+const SingleMovie = ({movie,genres,categories,special_categories}) => {
   return (
     <>
-      <Head title={slug} />
+      <Head title={movie.title} />
       <HeaderNav genres={genres} categories={categories} special_categories={special_categories} />
       <div className="container">
         <div className="main-content">
           <div className="row">
-            <SingleMovieLeftContent movieContent={movie_content} />
+            <SingleMovieLeftContent movieContent={movie} />
             <RightContent categories={categories} />
           </div>
         </div>
