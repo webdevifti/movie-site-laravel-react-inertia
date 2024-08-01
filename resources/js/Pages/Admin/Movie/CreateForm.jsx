@@ -7,26 +7,86 @@ import Select from "react-select";
 const CreateForm = ({ auth, active_categories, active_ganres }) => {
   const [value, setValues] = useState({
     title: "",
+    originaltitle: "",
+    category: "",
+    genre: [],
+    releasing_year: "",
+    rating: "",
+    poster: null,
+    trailer: "",
+    description: "",
+    cast_img: [],
+    cast_name: "",
+    character_name: "",
+    cast_role: "",
   });
 
   const categoryOptions = active_categories.map((category) => ({
     value: category.id,
     label: category.name,
   }));
+  const castRole = [
+    {
+      value: "Actor",
+      label: "Actor",
+    },
+    {
+      value: "Director",
+      label: "Director",
+    },
+  ];
   const genreOptions = active_ganres.map((genre) => ({
     value: genre.id,
     label: genre.name,
   }));
+  const handleSelectChange = (selectedOption, { name }) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: selectedOption
+        ? Array.isArray(selectedOption)
+          ? selectedOption.map((option) => option.value)
+          : selectedOption.value
+        : "",
+    }));
+  };
 
   const handleChange = (e) => {
-    const title = e.target.value;
-    setValues({ title: title });
+    const { name, value, type, files } = e.target;
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: type === "file" ? files[0] : value,
+    }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.post(route("admin.movies.store"), value);
-    setValues({ title: "" });
+
+    const formData = new FormData();
+    for (const key in value) {
+      formData.append(key, value[key]);
+    }
+
+    // Use the appropriate method to send the formData
+    router.post(route("admin.movies.store"), formData);
+
+    setValues({
+      title: "",
+      originaltitle: "",
+      category: "",
+      genre: [],
+      releasing_year: "",
+      rating: "",
+      poster: null,
+      trailer: "",
+      description: "",
+      cast_img: [],
+      cast_name: "",
+      character_name: "",
+      cast_role: "",
+    });
   };
+
   return (
     <div>
       <AuthenticatedLayout
@@ -49,8 +109,8 @@ const CreateForm = ({ auth, active_categories, active_ganres }) => {
 
         <div className="py-2">
           <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div className="bg-white shadow-sm p-4">
-              <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
+              <div className="bg-white shadow-sm p-4">
                 <div className="row">
                   <div className="col-lg-6">
                     <div className="mb-2">
@@ -73,7 +133,7 @@ const CreateForm = ({ auth, active_categories, active_ganres }) => {
                       <input
                         id="originaltitle"
                         type="text"
-                        name="originatitle"
+                        name="originaltitle"
                         value={value.originaltitle}
                         onChange={handleChange}
                         placeholder="Original title"
@@ -91,6 +151,7 @@ const CreateForm = ({ auth, active_categories, active_ganres }) => {
                         name="category"
                         id="cat"
                         options={categoryOptions}
+                        onChange={handleSelectChange}
                       />
                     </div>
                   </div>
@@ -104,6 +165,7 @@ const CreateForm = ({ auth, active_categories, active_ganres }) => {
                         isMulti
                         name="genre"
                         options={genreOptions}
+                        onChange={handleSelectChange}
                       />
                     </div>
                   </div>
@@ -113,6 +175,8 @@ const CreateForm = ({ auth, active_categories, active_ganres }) => {
                       <input
                         type="date"
                         name="releasing_year"
+                        value={value.releasing_year}
+                        onChange={handleChange}
                         className="form-control"
                       />
                     </div>
@@ -123,6 +187,8 @@ const CreateForm = ({ auth, active_categories, active_ganres }) => {
                       <input
                         type="text"
                         name="rating"
+                        value={value.rating}
+                        onChange={handleChange}
                         className="form-control"
                         placeholder="9.0"
                       />
@@ -134,6 +200,7 @@ const CreateForm = ({ auth, active_categories, active_ganres }) => {
                       <input
                         type="file"
                         name="poster"
+                        onChange={handleChange}
                         className="form-control"
                       />
                     </div>
@@ -144,6 +211,8 @@ const CreateForm = ({ auth, active_categories, active_ganres }) => {
                       <input
                         type="text"
                         name="trailer"
+                        value={value.trailer}
+                        onChange={handleChange}
                         className="form-control"
                       />
                     </div>
@@ -151,16 +220,124 @@ const CreateForm = ({ auth, active_categories, active_ganres }) => {
                   <div className="col-lg-12">
                     <div className="mb-2">
                       <label htmlFor="description">Info Description</label>
-                      <textarea name="description" rows={4} cols={30} className="form-control" id="" placeholder="infor description"></textarea>
+                      <textarea
+                        name="description"
+                        rows={4}
+                        cols={30}
+                        className="form-control"
+                        id="description"
+                        placeholder="Movie Description"
+                        value={value.description}
+                        onChange={handleChange}
+                      ></textarea>
                     </div>
                   </div>
                 </div>
-
-                <button type="submit" className="btn btn-primary btn-sm mt-2">
-                  Save
-                </button>
-              </form>
-            </div>
+              </div>
+              <div className="bg-white shadow-sm p-4 mt-2">
+                <h6>Casts</h6>
+                <hr />
+                <div className="mb-2">
+                  <div className="row">
+                    <div className="col-lg-3">
+                      <div className="mb-2">
+                        <input
+                          type="text"
+                          name="cast_name[]"
+                          className="form-control"
+                          placeholder="Name"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-3">
+                      <div className="mb-2">
+                        <input
+                          type="text"
+                          name="character_name[]"
+                          className="form-control"
+                          placeholder="Character Name"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-3">
+                      <div className="mb-2">
+                        <Select
+                          className="basic-single"
+                          classNamePrefix="select"
+                          name="cast_role[]"
+                          id="cast_role"
+                          options={castRole}
+                          onChange={handleSelectChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-3">
+                      <div className="mb-2">
+                        <input
+                          type="file"
+                          name="cast_img[]"
+                          onChange={handleChange}
+                          className="form-control"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="mb-2">
+                  <div className="row">
+                    <div className="col-lg-3">
+                      <div className="mb-2">
+                        <input
+                          type="text"
+                          name="cast_name[]"
+                          className="form-control"
+                          placeholder="Name"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-3">
+                      <div className="mb-2">
+                        <input
+                          type="text"
+                          name="character_name[]"
+                          className="form-control"
+                          placeholder="Character Name"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-3">
+                      <div className="mb-2">
+                        <Select
+                          className="basic-single"
+                          classNamePrefix="select"
+                          name="cast_role[]"
+                          id="cast_role"
+                          options={castRole}
+                          onChange={handleSelectChange}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-lg-3">
+                      <div className="mb-2">
+                        <input
+                          type="file"
+                          name="cast_img[]"
+                          onChange={handleChange}
+                          className="form-control"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" className="btn btn-primary btn-sm mt-2">
+                Save
+              </button>
+            </form>
           </div>
         </div>
       </AuthenticatedLayout>
