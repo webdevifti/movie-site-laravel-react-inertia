@@ -6,11 +6,11 @@ import HeaderNav from "../Components/frontend/Navbar";
 import RightContent from "@/Components/frontend/RightContent";
 import Footer from "@/Components/frontend/Footer";
 import CategoryContent from '@/Components/frontend/CategoryContent';
-const Category = ({slug,genres,categories,special_categories}) => {
+const Category = ({slug,genres,categories}) => {
   return (
     <>
       <Head title={slug} />
-      <HeaderNav genres={genres} categories={categories} special_categories={special_categories} />
+      <HeaderNav genres={genres} categories={categories}/>
       <div className="container">
         <div className="main-content">
           <div className="row">

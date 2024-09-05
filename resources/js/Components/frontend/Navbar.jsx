@@ -6,7 +6,7 @@ import HeaderSearch from "./HeaderSearch";
 import AlphabeticTag from "./AlphabeticTag";
 import DarkModeToggl from "./DarkModeToggl";
 
-const Navbar = ({genres,categories,special_categories}) => {
+const Navbar = ({genres,categories}) => {
   return (
     <>
       <header className="main-header">
@@ -16,7 +16,7 @@ const Navbar = ({genres,categories,special_categories}) => {
               <Logo />
             </div>
             <div className="main-nav">
-              <Menu genres={genres} categories={categories} special_categories={special_categories} />
+              <Menu genres={genres} categories={categories}  />
             </div>
             <div className="menu-search d-flex align-items-center gap-2">
               <HeaderSearch />

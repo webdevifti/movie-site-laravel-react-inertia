@@ -47,12 +47,7 @@ export default function Authenticated({ user, header, btn, children }) {
                 >
                   Categories
                 </NavLink>
-                 <NavLink
-                  href={route("admin.special-categories.index")}
-                  active={route().current("admin.special-categories.index")}
-                >
-                  Special Categories
-                </NavLink>
+              
               </div>
              
                
@@ -170,12 +165,7 @@ export default function Authenticated({ user, header, btn, children }) {
             >
               Categories
             </ResponsiveNavLink>
-            <ResponsiveNavLink
-              href={route("admin.special-categories.index")}
-              active={route().current("admin.special-categories.index")}
-            >
-              Special Categories
-            </ResponsiveNavLink>
+            
           </div>
 
           <div className="pt-4 pb-1 border-t border-gray-200">

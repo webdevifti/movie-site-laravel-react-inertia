@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Movie;
-use App\Models\SpecialCategory;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -16,18 +14,15 @@ class HomeController extends Controller
     {
         $genres = Genre::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
-        $special_categories = SpecialCategory::where('status', 1)->get();
         return Inertia::render('Home', [
             'genres' => $genres,
             'categories' => $categories,
-            'special_categories' => $special_categories
         ]);
     }
     public function movie($slug)
     {
         $genres = Genre::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
-        $special_categories = SpecialCategory::where('status', 1)->get();
         $movie = Movie::where('slug',$slug)->first();
         if(!$movie){
             return abort(404);
@@ -36,7 +31,6 @@ class HomeController extends Controller
             'slug' => $slug,
             'genres' => $genres,
             'categories' => $categories,
-            'special_categories' => $special_categories,
             'movie' => $movie
         ]);
     }
@@ -48,12 +42,10 @@ class HomeController extends Controller
     {
         $genres = Genre::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
-        $special_categories = SpecialCategory::where('status', 1)->get();
         return Inertia::render('Category', [
             'slug' => $slug,
             'genres' => $genres,
             'categories' => $categories,
-            'special_categories' => $special_categories
         ]);
     }
     public function specialCategory($slug)
@@ -70,11 +62,9 @@ class HomeController extends Controller
     {
         $genres = Genre::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
-        $special_categories = SpecialCategory::where('status', 1)->get();
         return Inertia::render('Search',[
             'genres' => $genres,
             'categories' => $categories,
-            'special_categories' => $special_categories
         ]);
     }
 }

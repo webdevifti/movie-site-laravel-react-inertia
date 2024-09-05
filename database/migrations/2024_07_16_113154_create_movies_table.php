@@ -23,42 +23,11 @@ return new class extends Migration
             $table->string('poster')->nullable();
             $table->string('trailer_url')->nullable();
             $table->text('info_description')->nullable();
+            $table->text('movies_links')->nullable();
+            $table->text('movies_casts')->nullable();
+            $table->text('movies_genres')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
-        });
-
-        Schema::create('movies_links', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('movie_id');
-            $table->text('download_url')->nullable();
-            $table->string('quality')->nullable();
-            $table->string('size')->nullable();
-            $table->string('language')->nullable();
-            $table->timestamps();
-            $table->foreign('movie_id')
-            ->references('id')->on('movies')
-            ->onDelete('cascade');
-        });
-        Schema::create('movies_casts', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('movie_id');
-            $table->text('name')->nullable();
-            $table->string('role')->nullable();
-            $table->string('img')->nullable();
-            $table->string('character_name')->nullable();
-            $table->timestamps();
-            $table->foreign('movie_id')
-            ->references('id')->on('movies')
-            ->onDelete('cascade');
-        });
-        Schema::create('movies_genres', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('movie_id');
-            $table->integer('genre_id')->nullable();
-            $table->timestamps();
-            $table->foreign('movie_id')
-            ->references('id')->on('movies')
-            ->onDelete('cascade');
         });
     }
 

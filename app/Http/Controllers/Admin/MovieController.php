@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MovieResourceCollection;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Movie;
+use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -16,8 +19,9 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $movies = Movie::orderBy('updated_at','desc')->get();
-        return Inertia::render('Admin/Movie/Index',[
+        $all_movies = Movie::orderBy('updated_at', 'desc')->get();
+        $movies = MovieResourceCollection::collection($all_movies);
+        return Inertia::render('Admin/Movie/Index', [
             'movies' => $movies
         ]);
     }
@@ -27,9 +31,9 @@ class MovieController extends Controller
      */
     public function create()
     {
-        $active_categories = Category::where('status',1)->get();
-        $active_ganres = Genre::where('status',1)->get();
-        return Inertia::render('Admin/Movie/CreateForm',[
+        $active_categories = Category::where('status', 1)->get();
+        $active_ganres = Genre::where('status', 1)->get();
+        return Inertia::render('Admin/Movie/CreateForm', [
             'active_categories' => $active_categories,
             'active_ganres' => $active_ganres
         ]);
@@ -40,7 +44,50 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $active_categories = Category::where('status', 1)->get();
+        $active_ganres = Genre::where('status', 1)->get();
+        try {
+            $casts = [];
+            foreach ($request->casts as $key => $cast) {
+                if ($request->hasFile("casts.$key.cast_img")) {
+                    $casts_image = fileUpload($request, "casts.$key.cast_img", 'uploads/movies/casts/');
+                } else {
+                    $casts_image = null;
+                }
+                $casts[] = [
+                    'name' => $cast['cast_name'],
+                    'img' => $casts_image,
+                    'role' => $cast['cast_role'],
+                    'character' => $cast['character_name'],
+                ];
+            }
+            $poster = fileUpload($request, 'poster', 'uploads/movies/posters/');
+            $movie = Movie::create([
+                'title' => $request->title,
+                'original_title' => $request->originaltitle,
+                'slug' => Str::slug($request->originaltitle),
+                'releasing_year' => $request->releasing_year,
+                'imdb_rating' => $request->rating,
+                'category_id' => $request->category,
+                'poster' => $poster,
+                'trailer_url' => $request->trailer,
+                'info_description' => $request->description,
+                'movies_casts' => json_encode($casts),
+                'movies_genres' => json_encode($request->genre),
+            ]);
+            return Inertia::render('Admin/Movie/CreateForm', [
+                'movie' => $movie,
+                'status' => 'success',
+                'active_categories' => $active_categories,
+                'active_ganres' => $active_ganres
+            ]);
+        } catch (Exception $e) {
+            return Inertia::render('Admin/Movie/CreateForm', [
+                'error' => $e->getMessage(),
+                'active_categories' => $active_categories,
+                'active_ganres' => $active_ganres
+            ]);
+        }
     }
 
     /**
@@ -72,6 +119,10 @@ class MovieController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $movie = Movie::findOrFail($id);
+        $movie->delete();
+        return Inertia::render('Admin/Movie/Index', [
+            'status' => 'success'
+        ]);
     }
 }

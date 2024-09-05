@@ -7,11 +7,11 @@ import RightContent from "@/Components/frontend/RightContent";
 import SingleMovieLeftContent from "@/Components/frontend/SingleMovieLeftContent";
 import Footer from "@/Components/frontend/Footer";
 
-const SingleMovie = ({movie,genres,categories,special_categories}) => {
+const SingleMovie = ({movie,genres,categories}) => {
   return (
     <>
       <Head title={movie.title} />
-      <HeaderNav genres={genres} categories={categories} special_categories={special_categories} />
+      <HeaderNav genres={genres} categories={categories} />
       <div className="container">
         <div className="main-content">
           <div className="row">
