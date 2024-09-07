@@ -44,6 +44,7 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
+       
         $active_categories = Category::where('status', 1)->get();
         $active_ganres = Genre::where('status', 1)->get();
         try {
@@ -74,6 +75,7 @@ class MovieController extends Controller
                 'info_description' => $request->description,
                 'movies_casts' => json_encode($casts),
                 'movies_genres' => json_encode($request->genre),
+                'movies_links' => json_encode($request->links)
             ]);
             return Inertia::render('Admin/Movie/CreateForm', [
                 'movie' => $movie,

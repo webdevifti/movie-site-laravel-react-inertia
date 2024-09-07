@@ -18,7 +18,12 @@ const CreateForm = ({ auth, active_categories, active_ganres,status,error }) => 
         trailer: "",
         description: "",
     });
-
+    const [casts, setCasts] = useState([
+        { cast_role: "", cast_name: "", character_name: "", cast_img: "" },
+    ]);
+    const [downloadLinks, setDownloadLinks] = useState([
+        { url: "", language: "", quality: ""},
+    ]);
     const categoryOptions = active_categories.map((category) => ({
         value: category.id,
         label: category.name,
@@ -87,6 +92,12 @@ const CreateForm = ({ auth, active_categories, active_ganres,status,error }) => 
                 formData.append(`casts[${index}][${key}]`, valueToAppend);
             });
         });
+        downloadLinks.forEach((item, index) => {
+            Object.keys(item).forEach((key) => {
+                let valueToAppend = item[key];
+                formData.append(`links[${index}][${key}]`, valueToAppend);
+            });
+        });
 
        router.post(route("admin.movies.store"), formData);
         
@@ -105,6 +116,9 @@ const CreateForm = ({ auth, active_categories, active_ganres,status,error }) => 
         setCasts([
             { cast_role: "", cast_name: "", character_name: "", cast_img: "" },
         ]);
+        setDownloadLinks([
+            { url: "", language: "", quality: ""},
+        ]);
 
       
     };
@@ -114,11 +128,6 @@ const CreateForm = ({ auth, active_categories, active_ganres,status,error }) => 
     if(status && status === 'success'){
         toast.success('Movie has been added successfully.');
     }
-    
-
-    const [casts, setCasts] = useState([
-        { cast_role: "", cast_name: "", character_name: "", cast_img: "" },
-    ]);
 
     const handleAddMoreCasts = () => {
         setCasts([
@@ -126,9 +135,19 @@ const CreateForm = ({ auth, active_categories, active_ganres,status,error }) => 
             { cast_role: "", cast_name: "", character_name: "", cast_img: "" },
         ]);
     };
+    const handleAddMoreDownloadLinks = () => {
+        setDownloadLinks([
+            ...downloadLinks,
+           { url: "", language: "", quality: ""},
+        ]);
+    };
     const handleRemoveCast = (index) => {
         const newCasts = casts.filter((_, i) => i !== index);
         setCasts(newCasts);
+    };
+    const handleRemoveDownlaodLink = (index) => {
+        const newDownloadLinks = downloadLinks.filter((_, i) => i !== index);
+        setDownloadLinks(newDownloadLinks);
     };
 
     const handleCastSelectChange = (selectedOption, index) => {
@@ -142,6 +161,12 @@ const CreateForm = ({ auth, active_categories, active_ganres,status,error }) => 
         const newCasts = [...casts];
         newCasts[index][name] = files ? files[0] : value;
         setCasts(newCasts);
+    };
+    const handleDownloadsLinkChange = (e, index) => {
+        const { name, value } = e.target;
+        const newDownloadLink = [...downloadLinks];
+        newDownloadLink[index][name] = value;
+        setDownloadLinks(newDownloadLink);
     };
 
     return (
@@ -321,7 +346,7 @@ const CreateForm = ({ auth, active_categories, active_ganres,status,error }) => 
                                 <hr />
                                 {casts.map((cast, index) => (
                                     <div
-                                        className="mb-2 willbemultistep"
+                                        className="mb-2"
                                         key={index}
                                     >
                                         <div className="row">
@@ -401,6 +426,95 @@ const CreateForm = ({ auth, active_categories, active_ganres,status,error }) => 
                                                     className="btn btn-danger btn-sm mt-2"
                                                     onClick={() =>
                                                         handleRemoveCast(index)
+                                                    }
+                                                >
+                                                    Remove
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="bg-white shadow-sm p-4 mt-2">
+                                <div className="d-flex align-items-center justify-content-between">
+                                    <h6>Download Links</h6>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary btn-sm"
+                                        onClick={handleAddMoreDownloadLinks}
+                                    >
+                                        Add More
+                                    </button>
+                                </div>
+                                <hr />
+                                {downloadLinks.map((item, index) => (
+                                    <div
+                                        className="mb-2"
+                                        key={index}
+                                    >
+                                        <div className="row">
+                                        
+                                            <div className="col-lg-2">
+                                                <div className="mb-2">
+                                                    <input
+                                                        type="url"
+                                                        name="url"
+                                                        className="form-control"
+                                                        placeholder="Url"
+                                                        onChange={(e) =>
+                                                            handleDownloadsLinkChange(
+                                                                e,
+                                                                index
+                                                            )
+                                                        }
+                                                        value={item.url}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-3">
+                                                <div className="mb-2">
+                                                    <input
+                                                        type="text"
+                                                        name="language"
+                                                        className="form-control"
+                                                        placeholder="Language"
+                                                        onChange={(e) =>
+                                                            handleDownloadsLinkChange(
+                                                                e,
+                                                                index
+                                                            )
+                                                        }
+                                                        value={
+                                                            item.language
+                                                        }
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-3">
+                                                <div className="mb-2">
+                                                    <input
+                                                        type="text"
+                                                        name="quality"
+                                                        placeholder="Quality"
+                                                        onChange={(e) =>
+                                                            handleDownloadsLinkChange(
+                                                                e,
+                                                                index
+                                                            )
+                                                        }
+                                                        value={
+                                                            item.quality
+                                                        }
+                                                        className="form-control"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-lg-2">
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-danger btn-sm mt-2"
+                                                    onClick={() =>
+                                                        handleRemoveDownlaodLink(index)
                                                     }
                                                 >
                                                     Remove

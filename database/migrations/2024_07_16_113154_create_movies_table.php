@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('releasing_year')->nullable();
             $table->double('imdb_rating',20,2)->nullable();
             $table->integer('category_id')->nullable();
-            $table->integer('special_category_id')->nullable();
             $table->string('poster')->nullable();
             $table->string('trailer_url')->nullable();
             $table->text('info_description')->nullable();
