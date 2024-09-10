@@ -1,8 +1,9 @@
 import { Link } from '@inertiajs/react'
 import React from 'react'
 
-const LinksTabContent = (props) => {
-    const links = props.links
+const LinksTabContent = ({links}) => {
+    const links_json = JSON.parse(links);
+    
   return (
     <div>
         <table className='table table-dark'>
@@ -11,17 +12,15 @@ const LinksTabContent = (props) => {
                     <th>Download</th>
                     <th>Quality</th>
                     <th>Lanuage</th>
-                    <th>Size</th>
                 </tr>
             </thead>
             <tbody>
                 {
-                    links.map((link,i) => (
+                    links_json.map((link,i) => (
                         <tr key={i}>
-                            <td><Link href={link.download_url}>Download</Link></td>
+                            <td><Link href={link.url}>Download</Link></td>
                             <td>{link.quality}</td>
                             <td>{link.language}</td>
-                            <td>{link.size}</td>
                         </tr>
                     ))
                 }

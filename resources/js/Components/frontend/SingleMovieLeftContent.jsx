@@ -6,32 +6,36 @@ import LinksTabContent from "./LinksTabContent";
 import CastsTabContent from "./CastsTabContent";
 import RelatedMovies from "./RelatedMovies";
 const SingleMovieLeftContent = (props) => {
-  const movie = props.movieContent[0];
+  const movie = props.movieContent.movie;
+  const genres = props.movieContent.genres;
+  const related_movies = props.related_movies
 
   const [activeTab, setActiveTab] = useState("info");
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
+  
+  
 
   return (
     <div className="col-lg-9">
       <div className="single-movie-content">
         <div className="top">
-          <img src={movie.poster} alt={movie.title} />
+          <img src={`/storage/uploads/movies/posters/${movie.poster}`} alt={movie.title} />
           <div>
             <h3>{movie.title}</h3>
             <div className="d-flex align-items-center gap-2">
               <p className="year">{movie.releasing_year}</p>
               <Link
-                href={`/category/${movie.category[0].slug}`}
+                href={`/category/${movie.category.slug}`}
                 className="category"
               >
-                {movie.category[0].name}
+                {movie.category.name}
               </Link>
             </div>
             <div className="genres">
-              {movie.genres.map((genre, i) => (
+              {genres.map((genre, i) => (
                 <Link href={`/genre/${genre.slug}`} className="genre" key={i}>
                   {genre.name}
                 </Link>
@@ -68,14 +72,14 @@ const SingleMovieLeftContent = (props) => {
         </div>
         <div className="tab-components">
           <div className="movie-info-component-items">
-            {activeTab === "info" && <InfoTabContent infoContent={movie.info} />}
-            {activeTab === "trailer" && <TrailerTabContent trailerUrl={movie.trailer} />}
-            {activeTab === "links" && <LinksTabContent links={movie.links} />}
-            {activeTab === "casts" && <CastsTabContent casts={movie.casts} />}
+             {activeTab === "info" && <InfoTabContent description={movie.info_description} />}
+            {activeTab === "trailer" && <TrailerTabContent trailerUrl={movie.trailer_url} />}
+            {activeTab === "links" && <LinksTabContent links={movie.movies_links} />}
+            {activeTab === "casts" && <CastsTabContent casts={movie.movies_casts} />}
           </div>
         </div>
 
-       <RelatedMovies />
+       <RelatedMovies related_movies={related_movies} />
       </div>
     </div>
   );

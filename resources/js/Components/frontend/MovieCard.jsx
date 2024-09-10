@@ -6,7 +6,7 @@ const MovieCard = (props) => {
     <div className="movie-card">
       <div className="poster">
         <Link href={`/movie/${item.slug}`}>
-          <img src={item.poster} alt={item.title} />
+          <img src={`/storage/uploads/movies/posters/${item.poster}`} alt={item.title} />
         </Link>
         <div className="movie-rating">
           <span>

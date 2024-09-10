@@ -3,11 +3,10 @@ import { Navigation, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import featured_movies from "@/assets/featured_movies";
 import MovieCard from "./MovieCard";
 
 
-const FeatureMovies = () => {
+const FeatureMovies = ({movies}) => {
   return (
     <div className="feature-movies">
       <h5>Featured</h5>
@@ -21,7 +20,7 @@ const FeatureMovies = () => {
         }}
         navigation
       >
-        {featured_movies.map((item) => (
+        {movies.map((item) => (
           <SwiperSlide key={item.id}>
             <MovieCard item={item} />
           </SwiperSlide>

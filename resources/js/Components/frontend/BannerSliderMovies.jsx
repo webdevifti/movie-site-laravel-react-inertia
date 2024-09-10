@@ -4,10 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import banner_slider_movies from "@/assets/banner_slider_movies";
 import { Link } from "@inertiajs/react";
 
-const BannerSliderMovies = () => {
+const BannerSliderMovies = ({banneredMovies}) => {
   return (
     <div className="banner-slider-movies">
       <Swiper
@@ -21,11 +20,11 @@ const BannerSliderMovies = () => {
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
       >
-        {banner_slider_movies.map((item) => (
+        {banneredMovies.map((item) => (
           <SwiperSlide key={item.id}>
             <div className="slider-image">
               <Link href={`/movie/${item.slug}`}>
-                <img src={item.poster} alt={item.title} />
+                <img src={`storage/uploads/movies/posters/${item.poster}`} alt={item.title} />
               </Link>
             </div>
             <div className="slider-content-meta">
