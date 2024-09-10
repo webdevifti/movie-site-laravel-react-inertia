@@ -19,7 +19,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $all_movies = Movie::orderBy('updated_at', 'desc')->get();
+        $all_movies = Movie::orderBy('created_at', 'desc')->get();
         $movies = MovieResourceCollection::collection($all_movies);
         return Inertia::render('Admin/Movie/Index', [
             'movies' => $movies
@@ -123,8 +123,19 @@ class MovieController extends Controller
     {
         $movie = Movie::findOrFail($id);
         $movie->delete();
-        return Inertia::render('Admin/Movie/Index', [
-            'status' => 'success'
-        ]);
+        return redirect()->back()->with('status', 'success');
+    }
+
+    public function toggleFeature($id){
+        $movie = Movie::findOrFail($id);
+        $movie->isFeatured = $movie->isFeatured == 1 ? 0 : 1;
+        $movie->save();
+        return redirect()->back()->with('status', 'success');
+    }
+    public function toggleBannered($id){
+        $movie = Movie::findOrFail($id);
+        $movie->isBannered = $movie->isBannered == 1 ? 0 : 1;
+        $movie->save();
+        return redirect()->back()->with('status', 'success');
     }
 }

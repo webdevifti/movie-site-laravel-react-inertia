@@ -26,6 +26,8 @@ return new class extends Migration
             $table->text('movies_casts')->nullable();
             $table->text('movies_genres')->nullable();
             $table->tinyInteger('status')->default(1);
+            $table->boolean('isFeatured')->default(false);
+            $table->boolean('isBannered')->default(false);
             $table->timestamps();
         });
     }

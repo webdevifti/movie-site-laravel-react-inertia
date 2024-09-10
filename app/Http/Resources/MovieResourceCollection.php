@@ -20,8 +20,12 @@ class MovieResourceCollection extends JsonResource
             'original_title' => $this->originaltitle,
             'status' => $this->status,
             'poster' => asset('storage/uploads/movies/posters/'.$this->poster),
+            'releasing_year' => $this->releasing_year,
+            'rating' => $this->imdb_rating,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'isFeatured' => $this->isFeatured,
+            'isBannered' => $this->isBannered,
         ];
     }
 }

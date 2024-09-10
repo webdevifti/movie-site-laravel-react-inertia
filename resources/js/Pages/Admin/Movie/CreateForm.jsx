@@ -62,6 +62,45 @@ const CreateForm = ({ auth, active_categories, active_ganres,status,error }) => 
         }));
     };
 
+    const handleAddMoreCasts = () => {
+        setCasts([
+            ...casts,
+            { cast_role: "", cast_name: "", character_name: "", cast_img: "" },
+        ]);
+    };
+    const handleAddMoreDownloadLinks = () => {
+        setDownloadLinks([
+            ...downloadLinks,
+           { url: "", language: "", quality: ""},
+        ]);
+    };
+    const handleRemoveCast = (index) => {
+        const newCasts = casts.filter((_, i) => i !== index);
+        setCasts(newCasts);
+    };
+    const handleRemoveDownlaodLink = (index) => {
+        const newDownloadLinks = downloadLinks.filter((_, i) => i !== index);
+        setDownloadLinks(newDownloadLinks);
+    };
+
+    const handleCastSelectChange = (selectedOption, index) => {
+        const newCasts = [...casts];
+        newCasts[index].cast_role = selectedOption;
+        setCasts(newCasts);
+    };
+
+    const handleCastChange = (e, index) => {
+        const { name, value, files } = e.target;
+        const newCasts = [...casts];
+        newCasts[index][name] = files ? files[0] : value;
+        setCasts(newCasts);
+    };
+    const handleDownloadsLinkChange = (e, index) => {
+        const { name, value } = e.target;
+        const newDownloadLink = [...downloadLinks];
+        newDownloadLink[index][name] = value;
+        setDownloadLinks(newDownloadLink);
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -122,52 +161,13 @@ const CreateForm = ({ auth, active_categories, active_ganres,status,error }) => 
 
       
     };
+
     if(error){
-        console.log(error);
+        toast.error('Someting happened wrong.'+ error);
     }
     if(status && status === 'success'){
         toast.success('Movie has been added successfully.');
     }
-
-    const handleAddMoreCasts = () => {
-        setCasts([
-            ...casts,
-            { cast_role: "", cast_name: "", character_name: "", cast_img: "" },
-        ]);
-    };
-    const handleAddMoreDownloadLinks = () => {
-        setDownloadLinks([
-            ...downloadLinks,
-           { url: "", language: "", quality: ""},
-        ]);
-    };
-    const handleRemoveCast = (index) => {
-        const newCasts = casts.filter((_, i) => i !== index);
-        setCasts(newCasts);
-    };
-    const handleRemoveDownlaodLink = (index) => {
-        const newDownloadLinks = downloadLinks.filter((_, i) => i !== index);
-        setDownloadLinks(newDownloadLinks);
-    };
-
-    const handleCastSelectChange = (selectedOption, index) => {
-        const newCasts = [...casts];
-        newCasts[index].cast_role = selectedOption;
-        setCasts(newCasts);
-    };
-
-    const handleCastChange = (e, index) => {
-        const { name, value, files } = e.target;
-        const newCasts = [...casts];
-        newCasts[index][name] = files ? files[0] : value;
-        setCasts(newCasts);
-    };
-    const handleDownloadsLinkChange = (e, index) => {
-        const { name, value } = e.target;
-        const newDownloadLink = [...downloadLinks];
-        newDownloadLink[index][name] = value;
-        setDownloadLinks(newDownloadLink);
-    };
 
     return (
         <div>

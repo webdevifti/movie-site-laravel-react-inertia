@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('/genres',GenreController::class);
         Route::resource('/categories', CategoryController::class);
         Route::resource('/movies', MovieController::class);
+        Route::get('movies/featured/{id}', [MovieController::class, 'toggleFeature']);
+        Route::get('movies/bannered/{id}', [MovieController::class, 'toggleBannered']);
     });
 });
 
