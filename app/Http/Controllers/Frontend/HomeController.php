@@ -56,10 +56,18 @@ class HomeController extends Controller
     {
         $genres = Genre::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
+        $get_category = Category::where('slug',$slug)->first();
+        if(!$get_category){
+            return abort(404);
+        }
+        $get_movies = Movie::with(['category'])->where('category_id',$get_category->id)->get();
+        
         return Inertia::render('Category', [
             'slug' => $slug,
             'genres' => $genres,
             'categories' => $categories,
+            'movies' => $get_movies,
+            'get_category' => $get_category
         ]);
     }
     public function alphbeticTag($character)
