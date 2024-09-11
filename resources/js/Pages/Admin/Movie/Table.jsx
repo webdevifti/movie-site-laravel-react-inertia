@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { router } from "@inertiajs/react";
 const Table = ({ movies }) => {
-    console.log(movies);
-
+   
     const [searchQuery, setSearchQuery] = useState("");
     const handleDelete = (movie_id) => {
         if (confirm("Are you Sure?")) {
