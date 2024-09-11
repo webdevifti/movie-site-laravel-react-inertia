@@ -19,7 +19,8 @@ class MovieController extends Controller
      */
     public function index()
     {
-        $all_movies = Movie::orderBy('created_at', 'desc')->get();
+        $all_movies = Movie::orderBy('created_at', 'desc')->paginate(20);
+        // dd($all_movies);
         $movies = MovieResourceCollection::collection($all_movies);
         return Inertia::render('Admin/Movie/Index', [
             'movies' => $movies

@@ -16,7 +16,7 @@ const Index = ({auth,movies}) => {
       }
       btn={<Link className="btn btn-primary btn-sm" href={route('admin.movies.create')}>Add New</Link>}
     >
-      <Head title="Manage Categories" />
+      <Head title="Manage Movies" />
       <div className="py-2">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white shadow-sm p-4">
