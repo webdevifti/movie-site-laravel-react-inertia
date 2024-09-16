@@ -43,6 +43,11 @@ p {
     width: auto;
     height: 30px;
 }
+.menu{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
 .menu a {
     margin: 0px 2px;
     padding: 11px 14px;
@@ -66,6 +71,7 @@ p {
 }
 .menu-item {
     position: relative;
+    cursor: pointer;
 }
 .dropdown-menu {
     max-width: auto;
@@ -421,4 +427,9 @@ p {
 
 .input-switch:checked ~ .info-text::before{
 	content: "Active";
+}
+.search-result-item{
+    border-bottom: 1px solid #333;
+    padding: 10px;
+    margin: 10px 0;
 }

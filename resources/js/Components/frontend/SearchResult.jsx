@@ -1,55 +1,76 @@
 import React from "react";
-import search_result from "@/assets/search_result";
 import { Link } from "@inertiajs/react";
 
-const SearchResult = () => {
-  return (
-    <div className="search-results">
-      {search_result.map((item, index) => (
-        <div
-          className="search-result-item d-flex align-items-start gap-2"
-          key={index}
-        >
-          <div>
-            <img src={item.poster} alt={item.title} />
-          </div>
-          <div>
-            <p>{item.title}</p>
-            <div className="d-flex align-items-center gap-4">
-              <p>IMDb: {item.rating}/10</p>
-              <p>{item.releasing_year}</p>
-            </div>
-            <div>
-              Genre:{" "}
-              {item.genres.map((v, i) => (
-                <Link
-                  className="search-result-genres"
-                  href={`/genre/${v.slug}`}
-                  key={i}
-                >
-                  {v.name}
-                </Link>
-              ))}
-              Languages:{" "}
-              {item.languages.map((l, j) => (
-                <span key={j}>{l.name},</span>
-              ))}
-              Quality: {item.quality}
-              Sizes:{" "}
-              {item.size.map((s, k) => (
-                <span key={k}>{s.title},</span>
-              ))}
-              Actors:{" "}
-              {item.actors.map((a, key) => (
-                <span key={key}>{a.name},</span>
-              ))}
-              Director: {item.director}
-            </div>
-          </div>
+const SearchResult = ({ movies }) => {
+  
+    return (
+        <div className="search-results">
+            {movies.length > 0 ? (
+                <>
+                    {movies.map((item, index) => (
+                        <div
+                            className="search-result-item d-flex align-items-start gap-2"
+                            key={index}
+                        >
+                            <div>
+                                <img
+                                  width={100}
+                                    src={`storage/uploads/movies/posters/${item.movie.poster}`}
+                                    alt={item.movie.title}
+                                />
+                            </div>
+                            <div>
+                                <p>{item.movie.title}</p>
+                                <div className="d-flex align-items-center gap-4">
+                                    <p>IMDb: {item.movie.imdb_rating}/10</p>
+                                    <p>{item.movie.releasing_year}</p>
+                                </div>
+                                <div>
+                                    <strong> Genres: </strong>
+                                    {item.genres.map((v, i) => (
+                                       
+                                        <span key={i}
+                                            className="search-result-genres"
+                                            href={`/genre/${v.slug}`}
+                                           
+                                        >
+                                            {v.name}
+                                        </span>
+                                    ))}
+                                    <br />
+                                    <strong>Languages: </strong>
+                                    {JSON.parse(item.movie.movies_links).map(
+                                        (l, j) => (
+                                            <span key={j}>{l.language},</span>
+                                        )
+                                    )}
+                                    <br />
+                                    <strong>Qualities: </strong>
+                                    {JSON.parse(item.movie.movies_links).map(
+                                        (l, j) => (
+                                            <span key={j}>{l.quality},</span>
+                                        )
+                                    )}
+
+                                    <br />
+                                    <strong> Actors: </strong>
+                                    {JSON.parse(item.movie.movies_casts).map(
+                                        (a, key) => (
+                                            <span key={key}>{a.name},</span>
+                                        )
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </>
+            ) : (
+                <div>
+                    <h3>No Movies Found!</h3>
+                </div>
+            )}
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 export default SearchResult;

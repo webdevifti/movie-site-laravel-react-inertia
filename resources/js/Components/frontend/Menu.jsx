@@ -22,7 +22,7 @@ const Menu = ({genres,categories}) => {
 
   return (
     <ul className="menu">
-      <Link href="#" className="dropdown-toggle menu-item">
+      <div className="dropdown-toggle menu-item">
         Movies
         <ul className="dropdown-menu">
           {chunkedCategories.map((chunk, index) => (
@@ -35,8 +35,8 @@ const Menu = ({genres,categories}) => {
             </div>
           ))}
         </ul>
-      </Link>
-      <Link href="#" className="dropdown-toggle menu-item">
+      </div>
+      <div className="dropdown-toggle menu-item">
         Genre
         <ul className="dropdown-menu">
           {chunkedGenres.map((chunk, index) => (
@@ -49,7 +49,7 @@ const Menu = ({genres,categories}) => {
             </div>
           ))}
         </ul>
-      </Link>
+      </div>
       
     </ul>
   );

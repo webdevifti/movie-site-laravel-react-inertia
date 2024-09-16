@@ -3,7 +3,7 @@ import React from "react";
 import HeaderSearch from "./HeaderSearch";
 import SearchResult from "./SearchResult";
 
-const SearchContent = () => {
+const SearchContent = ({movies}) => {
   return (
     <div className="col-lg-9">
       <div className="search-page-content">
@@ -13,7 +13,7 @@ const SearchContent = () => {
           <HeaderSearch />
         </div>
 
-        <SearchResult />
+        <SearchResult movies={movies} />
       </div>
     </div>
   );

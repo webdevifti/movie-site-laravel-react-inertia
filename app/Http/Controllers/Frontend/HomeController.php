@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Movie;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class HomeController extends Controller
@@ -89,13 +90,29 @@ class HomeController extends Controller
         dd($character);
     }
 
-    public function search()
-    {
+    public function search(Request $request)
+    {  
+        $movies = Movie::with('category')
+                        ->where('title','like','%'.$request->search.'%')
+                        ->Orwhere('original_title','like','%'.$request->search.'%')
+                        ->get();
+                        
+        $get_movies_with_genres = [];
+        foreach($movies as $movie){
+            $gen = json_decode($movie->movies_genres);
+            $genres =  Genre::where('status',1)->whereIn('id',$gen)->get();
+
+            $get_movies_with_genres[] = [
+                'movie' => $movie,
+                'genres' => $genres
+            ];
+        }
         $genres = Genre::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
         return Inertia::render('Search', [
             'genres' => $genres,
             'categories' => $categories,
+            'get_movies_with_genres'=> $get_movies_with_genres,
         ]);
     }
 }
