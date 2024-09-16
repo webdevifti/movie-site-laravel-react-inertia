@@ -50,7 +50,22 @@ class HomeController extends Controller
     }
     public function genre($slug)
     {
-        dd($slug);
+        $get_genre = Genre::where('slug',$slug)->first();
+        if(!$get_genre){
+            return abort(404);
+        }
+        $genres = Genre::where('status', 1)->get();
+        $categories = Category::where('status', 1)->get();
+
+        $get_movies = Movie::with(['category'])->whereJsonContains('movies_genres',(string)$get_genre->id)->get();
+        
+        
+        return Inertia::render('Genre', [
+            'genres' => $genres,
+            'categories' => $categories,
+            'movies' => $get_movies,
+            'get_genre' => $get_genre
+        ]);
     }
     public function category($slug)
     {
@@ -63,7 +78,6 @@ class HomeController extends Controller
         $get_movies = Movie::with(['category'])->where('category_id',$get_category->id)->get();
         
         return Inertia::render('Category', [
-            'slug' => $slug,
             'genres' => $genres,
             'categories' => $categories,
             'movies' => $get_movies,

@@ -10,12 +10,15 @@ const MovieCard = (props) => {
         </Link>
         <div className="movie-rating">
           <span>
-            <i className="fa fa-star"></i> {item.rating}
+            <i className="fa fa-star"></i> {item.imdb_rating}
           </span>
         </div>
-      <div className="movie-tag">
-        <span>{item.tag}</span>
-      </div>
+        {
+          item.isFeatured ? (<div className="movie-tag">
+            <span>Featured</span>
+          </div>):(<></>)
+        }
+      
       </div>
       <div>
         <p className="movie-name">

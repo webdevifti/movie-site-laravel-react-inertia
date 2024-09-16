@@ -5,17 +5,17 @@ import "../../css/style.css";
 import HeaderNav from "../Components/frontend/Navbar";
 import RightContent from "@/Components/frontend/RightContent";
 import Footer from "@/Components/frontend/Footer";
-import CategoryContent from "@/Components/frontend/CategoryContent";
-const Category = ({ get_category, genres, categories, movies }) => {
+import GenreContent from "@/Components/frontend/GenreContent";
+const Genre = ({ get_genre, genres, categories, movies }) => {
     return (
         <>
-            <Head title={get_category.name} />
+            <Head title={get_genre.name} />
             <HeaderNav genres={genres} categories={categories} />
             <div className="container">
                 <div className="main-content">
                     <div className="row">
-                      <h6>Movies for : {get_category.name}</h6>
-                        <CategoryContent movies={movies} />
+                      <h6>Movies for : {get_genre.name}</h6>
+                        <GenreContent movies={movies} />
                         <RightContent categories={categories} />
                     </div>
                 </div>
@@ -25,4 +25,4 @@ const Category = ({ get_category, genres, categories, movies }) => {
     );
 };
 
-export default Category;
+export default Genre;
