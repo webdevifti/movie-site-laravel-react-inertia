@@ -18,12 +18,14 @@ class HomeController extends Controller
         $featuredMovies = Movie::orderBy('updated_at', 'desc')->where('isFeatured', 1)->get();
         $banneredMovies = Movie::orderBy('updated_at', 'desc')->where('isBannered', 1)->get();
         $movies = Movie::orderBy('created_at', 'desc')->where('status', 1)->get();
+        $latest_movies = Movie::orderBy('created_at', 'desc')->where('status', 1)->limit(5)->get();
         return Inertia::render('Home', [
             'genres' => $genres,
             'categories' => $categories,
             'movies' => $movies,
             'banneredMovies' => $banneredMovies,
-            'featuredMovies' => $featuredMovies
+            'featuredMovies' => $featuredMovies,
+            'latest_movies' => $latest_movies
         ]);
     }
     public function movie($slug)
@@ -33,7 +35,7 @@ class HomeController extends Controller
         $movie = Movie::with(['category'])->where('slug', $slug)->first();
         $movies_genres = Genre::whereIn('id', json_decode($movie->movies_genres))->where('status', 1)->get();
         $related_movies = Movie::where('category_id', $movie->category_id)->where('id', '!=',$movie->id)->get();
-      
+        $latest_movies = Movie::orderBy('created_at', 'desc')->where('status', 1)->limit(5)->get();
         $this_movie = [
             'movie' => $movie,
             'genres' => $movies_genres
@@ -46,7 +48,8 @@ class HomeController extends Controller
             'genres' => $genres,
             'categories' => $categories,
             'movie' => $this_movie,
-            'related_movies' => $related_movies
+            'related_movies' => $related_movies,
+            'latest_movies' => $latest_movies
         ]);
     }
     public function genre($slug)
@@ -59,13 +62,14 @@ class HomeController extends Controller
         $categories = Category::where('status', 1)->get();
 
         $get_movies = Movie::with(['category'])->whereJsonContains('movies_genres',(string)$get_genre->id)->get();
-        
+        $latest_movies = Movie::orderBy('created_at', 'desc')->where('status', 1)->limit(5)->get();
         
         return Inertia::render('Genre', [
             'genres' => $genres,
             'categories' => $categories,
             'movies' => $get_movies,
-            'get_genre' => $get_genre
+            'get_genre' => $get_genre,
+            'latest_movies' => $latest_movies
         ]);
     }
     public function category($slug)
@@ -77,12 +81,14 @@ class HomeController extends Controller
             return abort(404);
         }
         $get_movies = Movie::with(['category'])->where('category_id',$get_category->id)->get();
+        $latest_movies = Movie::orderBy('created_at', 'desc')->where('status', 1)->limit(5)->get();
         
         return Inertia::render('Category', [
             'genres' => $genres,
             'categories' => $categories,
             'movies' => $get_movies,
-            'get_category' => $get_category
+            'get_category' => $get_category,
+            'latest_movies' => $latest_movies
         ]);
     }
     public function alphbeticTag($character)
@@ -109,10 +115,13 @@ class HomeController extends Controller
         }
         $genres = Genre::where('status', 1)->get();
         $categories = Category::where('status', 1)->get();
+        $latest_movies = Movie::orderBy('created_at', 'desc')->where('status', 1)->limit(5)->get();
+        
         return Inertia::render('Search', [
             'genres' => $genres,
             'categories' => $categories,
             'get_movies_with_genres'=> $get_movies_with_genres,
+            'latest_movies' => $latest_movies
         ]);
     }
 }

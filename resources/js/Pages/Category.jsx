@@ -6,7 +6,7 @@ import HeaderNav from "../Components/frontend/Navbar";
 import RightContent from "@/Components/frontend/RightContent";
 import Footer from "@/Components/frontend/Footer";
 import CategoryContent from "@/Components/frontend/CategoryContent";
-const Category = ({ get_category, genres, categories, movies }) => {
+const Category = ({ get_category, genres, categories, movies,latest_movies }) => {
     return (
         <>
             <Head title={get_category.name} />
@@ -16,7 +16,7 @@ const Category = ({ get_category, genres, categories, movies }) => {
                     <div className="row">
                       <h6>Movies for : {get_category.name}</h6>
                         <CategoryContent movies={movies} />
-                        <RightContent categories={categories} />
+                        <RightContent latest_movies={latest_movies} categories={categories} />
                     </div>
                 </div>
                 <Footer />

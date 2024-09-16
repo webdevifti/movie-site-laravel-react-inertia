@@ -7,7 +7,7 @@ import SearchContent from "@/Components/frontend/SearchContent";
 import HeaderNav from "../Components/frontend/Navbar";
 import RightContent from "@/Components/frontend/RightContent";
 import Footer from "@/Components/frontend/Footer";
-const Search = ({genres,categories,get_movies_with_genres}) => {
+const Search = ({genres,categories,get_movies_with_genres,latest_movies}) => {
   return (
     <>
       <Head title="Search result" />
@@ -16,7 +16,7 @@ const Search = ({genres,categories,get_movies_with_genres}) => {
         <div className="main-content">
           <div className="row">
             <SearchContent movies={get_movies_with_genres} />
-            <RightContent categories={categories} />
+            <RightContent latest_movies={latest_movies} categories={categories} />
           </div>
         </div>
         <Footer />

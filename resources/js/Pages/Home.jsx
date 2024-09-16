@@ -7,12 +7,12 @@ import "../../css/style.css";
 import HeaderNav from "../Components/frontend/Navbar";
 import MainContent from './../Components/frontend/MainContent';
 import Footer from "@/Components/frontend/Footer";
-const Home = ({genres,categories, featuredMovies,banneredMovies,movies}) => {
+const Home = ({genres,categories, featuredMovies,banneredMovies,movies,latest_movies}) => {
   return (
     <>
       <Head title="Welcome" />
       <HeaderNav genres={genres} categories={categories} />
-      <MainContent categories={categories} featuredMovies={featuredMovies} banneredMovies={banneredMovies} movies={movies} />
+      <MainContent categories={categories} featuredMovies={featuredMovies} banneredMovies={banneredMovies} movies={movies} latest_movies={latest_movies}/>
       <Footer />
     </>
   );

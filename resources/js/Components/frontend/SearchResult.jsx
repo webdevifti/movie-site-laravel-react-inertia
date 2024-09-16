@@ -13,14 +13,14 @@ const SearchResult = ({ movies }) => {
                             key={index}
                         >
                             <div>
-                                <img
+                              <Link href={`/movie/${item.movie.slug}`}>  <img
                                   width={100}
                                     src={`storage/uploads/movies/posters/${item.movie.poster}`}
                                     alt={item.movie.title}
-                                />
+                                /></Link>
                             </div>
                             <div>
-                                <p>{item.movie.title}</p>
+                                <p ><Link className="text-white text-bold" href={`/movie/${item.movie.slug}`}>{item.movie.title}</Link></p>
                                 <div className="d-flex align-items-center gap-4">
                                     <p>IMDb: {item.movie.imdb_rating}/10</p>
                                     <p>{item.movie.releasing_year}</p>

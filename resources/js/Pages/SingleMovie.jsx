@@ -7,7 +7,7 @@ import RightContent from "@/Components/frontend/RightContent";
 import SingleMovieLeftContent from "@/Components/frontend/SingleMovieLeftContent";
 import Footer from "@/Components/frontend/Footer";
 
-const SingleMovie = ({movie,genres,categories,related_movies}) => {
+const SingleMovie = ({movie,genres,categories,related_movies,latest_movies}) => {
   return (
     <>
       <Head title={movie.movie.title} />
@@ -16,7 +16,7 @@ const SingleMovie = ({movie,genres,categories,related_movies}) => {
         <div className="main-content">
           <div className="row">
             <SingleMovieLeftContent related_movies={related_movies} movieContent={movie} />
-            <RightContent categories={categories} />
+            <RightContent latest_movies={latest_movies} categories={categories} />
           </div>
         </div>
 
